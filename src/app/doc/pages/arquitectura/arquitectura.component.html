@@ -1,0 +1,156 @@
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Arquitectura AWS - Control de Flujo Vehicular</h5>      
+    </div>
+    <div class="card-body">
+        <img
+        style="width: 800px; height: 650px"
+        src="assets/arq_cdfv.png"
+        alt=""
+        class="card-img-top"
+        />
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <img
+        style="width: 80px; height: 65px"
+        src="assets/aws-api-gateway.png"
+        alt=""
+        class="card-img-top"
+        />
+            API Gateway</h5>      
+    </div>
+    <div class="card-body">
+        <p class="card-text">Es el Servicio es utilizado para ejecutar las funciones Lambda. 
+            El protocolo de comunicación utilizado es REST en formato JSON. La aplicación Angular 
+            interactúa  con los demás componentes de la arquitectura por medio de API Gateway ejecutando los diferentes métodos previamente configurados</p>
+    </div>
+  </div>
+  <br/>
+  <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <img
+        style="width: 80px; height: 65px"
+        src="assets/lambda.png"
+        alt=""
+        class="card-img-top"
+        />Lambda Function</h5>      
+    </div>
+    <div class="card-body">
+        <p class="card-text">Lambda es el CORE dentro de la arquitectura, es el encargado de interactuar con 
+            todos los componentes. Responde a las peticiones que se envian a los diferentes métodos de API Gateway.
+            El lenguage de programación utilizado en las funciones Lambda es Python, ya que cuenta con un librería 
+            llamada boto3 que permite conectarse con varios servicios de AWS. 
+        </p>
+    </div>
+  </div>
+  <br/>
+  <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <img
+        style="width: 80px; height: 65px"
+        src="assets/rds.png"
+        alt=""
+        class="card-img-top"
+        /> PostgreSQL RDS</h5>      
+    </div>
+    <div class="card-body">
+        <p class="card-text">RDS es el servicio de base de datos transaccionales en la nube que ofrece AWS.
+            El motor de base de datos utilizado es PostgreSQL ya que es gratuito y de código abierto.
+            Cuenta con todos los objetos más utilizados en bases de datos transaccionales como tablas, índices, secuencias,
+            procesos y funciones. 
+        </p>
+    </div>
+  </div>
+  <br/>
+  <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <img
+        style="width: 80px; height: 65px"
+        src="assets/s3.png"
+        alt=""
+        class="card-img-top"
+        /> AWS S3</h5>      
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            Simple Storage Service es utilizado como File System, se almacenan los archivos de entrada que utilizan
+            los algoritmos para realizar el análisis. Los resultados obtenidos del análisis se mueven a S3.
+            También el servicio se utiliza como Hosting para alojar la aplicación Angular.
+        </p>
+    </div>
+  </div>
+  <br/>
+  <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <img
+        style="width: 80px; height: 65px"
+        src="assets/system_manager.png"
+        alt=""
+        class="card-img-top"
+        /> AWS System Manager</h5>      
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            Es el servicio utilizado para ejecutar los algoritmos de manera remota en las maquinas virtuales.
+            Lambda importa las funcionalidades de System Manager por medio de boto3 y hace uso del método send_command  
+            que es el encargado de enviar la secuencia de comandos de forma segura sin necesidad de usar SSH.
+        </p>
+    </div>
+  </div>
+  <br/>
+  <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <img
+        style="width: 80px; height: 65px"
+        src="assets/medialive.png"
+        alt=""
+        class="card-img-top"
+        />Media Live y Media Package
+        <img
+        style="width: 80px; height: 65px"
+        src="assets/MediaPackage.png"
+        alt=""
+        class="card-img-top"
+        />
+    </h5>  
+            
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+        Son los servicios utilizados para la trasmisión en tiempo real.
+        Media Live es el servicio que proporciona el canal de entrada para conectarse al live 
+        streaming usando el protocolo RTMP obteniendo como resultado un streaming de buena calidad 
+        para ser procesado por otros servicios de AWS. Media Package es el servicio que toma como fuente la salida de 
+        Media Live y empaqueta el contenido para agregar una capa de seguridad y luego ser entregado a varios dispositivos.
+        </p>
+    </div>
+  </div>
+  <br/>
+  <div class="card">
+    <div class="card-header">
+        <h5 class="card-title">
+            <img
+        style="width: 80px; height: 65px"
+        src="assets/ec2.png"
+        alt=""
+        class="card-img-top"
+        /> EC2</h5>  
+    </div>
+    <div class="card-body">
+        <p class="card-text">
+            EC2 son las máquinas virtuales donde se ejecutan los algoritmos de análisis de información. 
+            El ambiente ya se encuentra configurado para que funcionen los algoritmos de acuerdo con la 
+            arquitectura definida. Las máquinas virtuales tienen instalado el agente que permite que 
+            System Manager ejecute comandos de manera remota.</p>
+    </div>
+  </div>

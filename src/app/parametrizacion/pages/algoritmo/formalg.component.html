@@ -1,0 +1,191 @@
+<!--Formulario Datos de la prueba que se realizara-->
+<div class="container mt-3">
+    <div class="card borde">
+      <div class="card-body">
+        <form class="row g-3" #clienteForm="ngForm">
+            <div class="col-4">
+                <label for="nombrealg" class="form-label">Nombre Algoritmo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombrealg"
+                  name="nombrealg"
+                  [(ngModel)]="algoritmo.nombre"
+                  placeholder=""
+                />
+              </div>
+            <div class="col-4">
+            <label for="descripcion" class="form-label">Descripcion Algoritmo</label>
+            <input
+              type="text"
+              class="form-control"
+              id="descripcion"
+              name="descripcion"
+              [(ngModel)]="algoritmo.descripcion"
+            />
+          </div>
+          <div class="col-4">
+            <label for="lenguage" class="form-label">Lenguage de Programacion</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lenguage"
+              name="lenguage"
+              [(ngModel)]="algoritmo.lenguage"
+            />
+          </div>
+          
+          <div class="col-4">
+            <label for="repositorioalg" class="form-label">URL Repositorio del Algoritmo</label>
+            <input
+              type="text"
+              class="form-control"
+              id="repositorioalg"
+              name="repositorioalg"
+              [(ngModel)]="algoritmo.urlRepositorio"
+            />
+          </div>
+          <div class="col-4" >
+            <label for="comando" class="form-label">Comando de Ejecucion</label>
+            <input
+              type="text"
+              class="form-control"
+              id="comando"
+              name="comando"
+              [(ngModel)]="algoritmo.comandoEjecucion"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="serviceaws" class="form-label">Servicio AWS</label>
+            <select id="serviceaws" name="serviceaws" class="form-select" [(ngModel)]="algoritmo.codServicioAws">
+              <option *ngFor="let level of services" [ngValue]="level">{{level}}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="modalgoritmo" class="form-label">Modulos</label>
+            <select id="modalgoritmo" name="modalgoritmo" class="form-select" [(ngModel)]="algoritmo.moduloId">
+              <option *ngFor="let level of modulos" [ngValue]="level.id">{{level.nombre}}</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="Identificador" class="form-label">Identificador del Servicio</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Identificador"
+              name="Identificador"
+              [(ngModel)]="algoritmo.idServicioAws"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="analisis" class="form-label">Tipo de Analisis</label>
+            <select id="analisis" name="analisis" class="form-select" [(ngModel)]="algoritmo.tipoAnalisis">
+              <option *ngFor="let level of tiposDeAnalisis" [ngValue]="level">{{level}}</option>
+            </select>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" 
+              type="checkbox" role="switch" id="libreria"
+              name="namelibreria"
+              [(ngModel)]="algoritmo.usaLibreria"
+              >
+            <label class="form-check-label" for="flexSwitchCheckDefault">Usa libreria</label>
+          </div>
+          <div *ngIf="!algoritmo.usaLibreria; else elseBlock">
+          </div>
+          <ng-template #elseBlock>
+          <div class="col-4" *ngIf="algoritmo.usaLibreria">
+            <label for="nombrelibreria" class="form-label">Nombre Libreria</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombrelibreria"
+              name="nombrelibreria"
+              [(ngModel)]="algoritmo.libreria.nombre"
+            />
+          </div>
+          <div class="col-4" *ngIf="algoritmo.usaLibreria">
+            <label for="urldocumentacion" class="form-label">URL Documentacion</label>
+            <input
+              type="text"
+              class="form-control"
+              id="urldocumentacion"
+              name="urldocumentacion"
+              [(ngModel)]="algoritmo.libreria.documentacion"
+            />
+          </div>
+          </ng-template>
+
+          <div class="col-12">
+            <button
+              class="btn btn-primary"
+              role="button"
+              (click)="create()"
+              *ngIf="!algoritmo.id;"
+              [disabled]="!clienteForm.form.valid"
+            >Guardar Algoritmo </button>
+
+
+          </div>
+
+          <div class="text-right col-12">
+            <button class="btn btn-rounded btn-primary" *ngIf=algoritmo.id; type="button" [routerLink]="['/parametrizacion/ejemplo',algoritmo.id]">
+              Crear Ejemplo
+            </button>
+          </div>
+
+          <div class="text-right col-12">
+            <button class="btn btn-rounded btn-primary" *ngIf="algoritmo.id > 0 && ejemplos.length == 0" 
+              type="button"
+              (click)="create()" >
+              Actualizar
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+</div>
+  <!--Fin Formulario-->
+<!--Lista de ejemplos configurados-->
+<div class="container mt-3">
+  <div class="card borde">
+    <div class="card-body">
+      <br />
+      Ejemplos
+      <br />
+      <br />
+      <table
+      id="datatable_usuarios"
+      class="table table-bordered table-striped no-wrap"
+      style="width: 100%"
+    >
+      <thead class="text-white bg-dark">
+        <tr>
+          <th>ID</th>
+          <th>Descripcion</th>
+          <th>Cantidad Parametros</th>
+          <th>Fecha Creacion</th>
+          <th>Abrir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ej of ejemplos">            
+          <td>{{ej.id}}</td>
+          <td>{{ej.descripcion}}</td>
+          <td>{{ej.cantParametros}}</td>
+          <td>{{ej.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
+          <td>
+            <button type="button" name="Editar" [routerLink]="['/parametrizacion/ejemplo',ej.algoritmoId, ej.id]" class="btn btn-primary btn-sm">Abrir</button>
+          </td> 
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+</div>
+<!--Fin Ejemplos-->
+
+

@@ -1,0 +1,49 @@
+<div>
+
+  <div class="container mt-3">
+    <div class="card borde">
+      <div class="card-body">
+        <div class="my-2 text-left">
+          <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/parametrizacion/dataupload/form']">
+            Crear Prueba
+          </button>
+        </div>
+        <div class="x-3 text-right">
+          <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/parametrizacion/algoritmo']">
+            Configurar Algoritmo
+          </button>
+        </div>
+        <br />
+        <br />
+        <table
+          id="datatable_usuarios"
+          class="table table-bordered table-striped no-wrap"
+          style="width: 100%"
+        >
+          <thead class="text-white bg-dark">
+            <tr>
+              <th>Modulo</th>
+              <th>Algoritmo</th>
+              <th>CreateAt</th>
+              <th>Observacion</th>
+              <th>Estado</th>
+              <th>Ver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prueba of pruebas">            
+              <td>{{prueba.nombreModulo}}</td>
+              <td>{{prueba.nombreAlgoritmo}}</td>
+              <td>{{prueba.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
+              <td>{{prueba.observacion}}</td>
+              <td>{{prueba.estado}}</td>
+              <td>
+                <button type="button" name="Editar" [routerLink]="['/parametrizacion/dataupload/form', prueba.id]" class="btn btn-primary btn-sm">Abrir</button>
+              </td> 
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
