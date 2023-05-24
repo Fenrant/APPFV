@@ -20,7 +20,7 @@
             class="btn btn-primary"
             role="button"
             (click)="ejecutarAlgoritmo()"
-            *ngIf="!prueba.id;"
+            *ngIf="prueba.id;"
             [disabled]="!clienteForm.form.valid"
           >Ejecutar Algoritmo</button>
 
