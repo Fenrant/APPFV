@@ -20,6 +20,8 @@ export class DatauploadComponent implements OnInit {
     this.dataService.getPruebas().pipe(
 
     ).subscribe(pruebas => this.pruebas = pruebas);
+
+    
   }
 
   delete(prueba: Prueba): void {

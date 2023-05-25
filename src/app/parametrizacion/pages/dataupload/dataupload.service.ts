@@ -35,7 +35,7 @@ export class PruebaService {
               return throwError(e);
             }
     
-            console.error(e.error.mensaje);
+            //console.error(e.error.mensaje);
             swal.fire(e.error.mensaje, e.error.error, 'error');
             return throwError(e);
           })
@@ -56,7 +56,7 @@ export class PruebaService {
           if (e.status == 400) {
             return throwError(e);
           }
-          console.error(e);
+          //console.error(e);
           swal.fire(e.error.mensaje, e.error.error, 'error');
           return throwError(e);
         })
@@ -102,7 +102,7 @@ export class PruebaService {
             return pruebas;
           }
           pruebas = response as Prueba[];
-          
+          console.log(pruebas)
           return pruebas.map(prueba => {
             prueba.observacion = prueba.observacion.toUpperCase();
             return prueba;
@@ -118,7 +118,7 @@ export class PruebaService {
       return this.http.get<Prueba>(`${this.urlEndPoint}/cabpruebas/${id}`).pipe(
         catchError(e => {
           this.router.navigate(['/parametrizacion/dataupload/']);
-          console.log(e.message);
+          //console.log(e.message);
           swal.fire('Error al editar', e.error.mensaje, 'error');
           return throwError(e);
         })
@@ -133,7 +133,7 @@ export class PruebaService {
             return throwError(e);
           }
   
-          console.error(e.error.mensaje);
+          //console.error(e.error.mensaje);
           swal.fire(e.error.mensaje, e.error.error, 'error');
           return throwError(e);
         })
@@ -156,7 +156,7 @@ export class PruebaService {
     delete(prueba: Prueba): Observable<Prueba> {
       return this.http.put<Prueba>(`${this.urlEndPoint}/cabpruebas/${prueba.id}`, prueba,{ headers: this.httpHeaders }).pipe(
         catchError(e => {
-          console.error(e.error.mensaje);
+          //console.error(e.error.mensaje);
           swal.fire(e.mensaje, e.statusCode, 'error');
           return throwError(e);
         })
