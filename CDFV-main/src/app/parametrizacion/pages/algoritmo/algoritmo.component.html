@@ -1,0 +1,45 @@
+<div>
+
+    <div class="container mt-3">
+      <div class="card borde">
+        <div class="card-body">
+          <div class="x-3 text-right">
+            <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/parametrizacion/algoritmo/form']">
+              Configurar Algoritmo
+            </button>
+          </div>
+          <br />
+          <br />
+          <table
+          id="datatable_usuarios"
+          class="table table-bordered table-striped no-wrap"
+          style="width: 100%"
+        >
+          <thead class="text-white bg-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Lenguage</th>
+              <th>Modulo</th>
+              <th>Fecha Creacion</th>
+              <th>Abrir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let alg of algoritmos">            
+              <td>{{alg.id}}</td>
+              <td>{{alg.nombre}}</td>
+              <td>{{alg.lenguage}}</td>
+              <td>{{alg.nombreModulo}}</td>
+              <td>{{alg.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
+              <td>
+                <button type="button" name="Editar" [routerLink]="['/parametrizacion/algoritmo/form', alg.id]" class="btn btn-primary btn-sm">Abrir</button>
+              </td> 
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,142 @@
+
+<!--Formulario de los ejemplos de Ejecucion-->
+<div class="container mt-3">
+    <div class="card borde">
+      <div class="card-body">
+        <form class="row g-3" #clienteForm="ngForm">
+            <div class="col-4">
+                <label for="ejemplo" class="form-label">Descripcion Ejemplo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="ejemplo"
+                  name="ejemplo"
+                  [(ngModel)]="ejemplo.descripcion"
+                />
+              </div>
+  
+          <div class="col-md-4">
+            <label for="cantparametros" class="form-label">Cantidad Parametros de entrada</label>
+            <select id="cantparametros" name="cantparametros" class="form-select" [(ngModel)]="cantParams">
+              <option *ngFor="let level of listCantParams" [ngValue]="level">{{level}}</option>
+            </select>
+          </div>
+         <!--Parametros-->
+         <div class="container mt-3" *ngIf="ejemplo.id > 0">
+          <div class="card borde">
+            <div class="card-body">
+              <br />
+              Parametros
+              <br />
+              <br />
+              <table
+              id="datatable_usuarios"
+              class="table table-bordered table-striped no-wrap"
+              style="width: 100%"
+            >
+              <thead class="text-white bg-dark">
+                <tr>
+                  <th>Orden Parametro</th>
+                  <th>Nombre</th>
+                  <th>Descripcion</th>
+                  <th>Tipo Dato</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let param of listParams">            
+                  <td>{{param.orden}}</td>
+                  <td>{{param.nombre}}</td>
+                  <td>{{param.descripcion}}</td>
+                  <td>{{param.tipoDato}}</td>
+                  <td>{{param.valor}}</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        
+        </div>
+        <div class="container mt-3" *ngIf="ejemplo.id == 0">
+          <div *ngFor="let param of listParams; let i = index">
+            <div class="card borde">
+              <div class="col-sm-3" >
+                  <input class="form-control" type="text" placeholder="Parametro {{i +1}}" aria-label="Disabled input example" disabled>
+                </div>
+                <div class="col-md-4">
+                  <label for="nombre{{i + 1}}" class="form-label">Nombre Parametro</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nombre{{i + 1}}"
+                    name="nombre{{i + 1}}"
+                    [(ngModel)]="param.nombre"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="descripcion{{i + 1}}" class="form-label">Descripcion Parametro</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="descripcion{{i + 1}}"
+                    name="descripcion{{i + 1}}"
+                    [(ngModel)]="param.descripcion"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <label for="tipo{{i + 1}}" class="form-label">Tipo de dato Parametro</label>
+                  <select id="tipo{{i + 1}}" name="tipo{{i + 1}}" class="form-select" [(ngModel)]="param.tipoDato">
+                    <option *ngFor="let level of tipoDeDatos" [ngValue]="level">{{level}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4" *ngIf="param.tipoDato == 'String'|| param.tipoDato =='Integer' || param.tipoDato =='Double'">
+                  <label for="paraminput{{i + 1}}" class="form-label">Valor</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="paraminput{{i + 1}}"
+                    name="paraminput{{i + 1}}"
+                    [(ngModel)]="param.valor"
+                  />
+                </div>
+                
+            <div class="col-md-4"  *ngIf="param.tipoDato == 'Archivo' && param.valor == null">
+              <label for="formFile{{i + 1}}" class="form-label">File Input</label>
+              <input
+              (change)="this.onFilechange($event,i)"
+              class="form-control"
+                type="file"
+                id="formFile{{i + 1}}"
+              />
+            </div>
+            <div class="col-md-6"  *ngIf="param.tipoDato == 'Archivo' && param.valor !== null">
+              <label for="formFile{{i + 1}}" class="form-label">Nombre del archivo: {{param.valor}}
+              </label>
+            </div>
+            </div>
+          </div>
+        </div>    
+
+          <div class="col-12" *ngIf="cantParams > 0 && ejemplo.id == 0">
+            <button
+              class="btn btn-primary"
+              role="button"
+              (click)="this.upload()"
+            >
+              Guardar Ejemplo
+            </button>
+          </div>
+          <div class="col-13">
+            <button
+              class="btn btn-primary"
+              role="button"
+              [routerLink]="['/parametrizacion/algoritmo/form', ejemplo.algoritmoId]"
+            >
+              Retornar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--Fin Formulario-->

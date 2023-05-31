@@ -46,7 +46,7 @@ export class EjecucionComponent implements OnInit {
     });
     
     
-    this.dataService.getJson('https://filecdfv3.s3.amazonaws.com/DatosJson_'+this.id + '.json').pipe().subscribe(response => {
+    this.dataService.getJson('https://filecdfv.s3.us-west-1.amazonaws.com/DatosJson_'+this.id + '.json').pipe().subscribe(response => {
       
       this.json = response;
       this.keys = Object.keys(this.json[0]);
@@ -55,7 +55,7 @@ export class EjecucionComponent implements OnInit {
       
     });
 
-    this.dataService.getMapa('https://filecdfv3.s3.amazonaws.com/MapaPrueba_'+this.id).pipe().subscribe(response => {
+    this.dataService.getMapa('https://filecdfv.s3.us-west-1.amazonaws.com/MapaPrueba_'+this.id).pipe().subscribe(response => {
       this.mapa = response;
       //this.mapaSecure = this._sanitizer.bypassSecurityTrustHtml(this.mapa);
       this.mapa = this.sanitizer.bypassSecurityTrustHtml(this.mapa);
@@ -63,7 +63,7 @@ export class EjecucionComponent implements OnInit {
       
     });
 
-    this.dataService.getMapa('https://filecdfv3.s3.amazonaws.com/Mensaje__'+this.id+ '.txt').pipe().subscribe(response => {
+    this.dataService.getMapa('https://filecdfv.s3.us-west-1.amazonaws.com/Mensaje_'+this.id+ '.txt').pipe().subscribe(response => {
 
       //console.log(response)
 

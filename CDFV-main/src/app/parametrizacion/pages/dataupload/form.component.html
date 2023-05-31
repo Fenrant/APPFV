@@ -1,0 +1,228 @@
+<!--Formulario Datos de la prueba que se realizara-->
+<div class="container mt-3">
+  <div class="card borde">
+    <div class="card-body">
+      <div class="col-sm-3" >
+        <input class="form-control" type="text" placeholder="Estado: {{prueba.estado}}" aria-label="Disabled input example" disabled>
+      </div>
+      <form class="row g-3" #clienteForm="ngForm">
+        <div class="col-15">
+          <button
+            class="btn btn-primary"
+            role="button"
+            (click)="create()"
+            *ngIf="!prueba.id;"
+            [disabled]="!clienteForm.form.valid"
+          >
+            Guardar Prueba
+          </button>
+          <button
+            class="btn btn-primary"
+            role="button"
+            (click)="ejecutarAlgoritmo()"
+            *ngIf="prueba.id;"
+            [disabled]="!clienteForm.form.valid"
+          >Ejecutar Algoritmo</button>
+
+        </div>
+        <div class="col-4">
+          <label for="observacion" class="form-label">Observacion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="observacion"
+            name="observacion"
+            [(ngModel)]="prueba.observacion"
+            placeholder="Observacion Algoritmo"
+          />
+        </div>
+        <div class="col-md-4">
+          <label for="modalgoritmo" class="form-label">Modulo</label>
+          <select id="modalgoritmo" name="modalgoritmo" class="form-select" [(ngModel)]="moduloId">
+            <option *ngFor="let level of modulos" [ngValue]="level.id">{{level.nombre}}</option>
+          </select>
+        </div>
+        <div class="col-md-4" >
+          <label for="algoritmo" class="form-label">Algoritmo</label>
+          <select id="algoritmo" name="algoritmo" class="form-select" [(ngModel)]="algoritmoId">
+            <option *ngFor="let level of algoritmos" [ngValue]="level.id">{{level.id}} - {{level.nombre}}</option>
+          </select>
+        </div>
+
+        <div class="col-4" *ngIf="prueba.algoritmoId !== 0">
+          <label for="comando" class="form-label">Comando de Ejecucion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="comando"
+            name="comando"
+            [(ngModel)]="request.comando"
+          />
+        </div>
+        <div class="col-4" *ngIf="prueba.algoritmoId > 0">
+          <label for="descripcion" class="form-label">Descripcion Algoritmo</label>
+          <input
+            type="text"
+            class="form-control"
+            id="descripcion"
+            name="descripcion"
+            [(ngModel)]="descripcion"
+          />
+        </div>
+        <div class="col-md-4" *ngIf="prueba.algoritmoId > 0">
+          <label for="ejemplo" class="form-label">Ejemplo</label>
+          <select id="ejemplo" name="ejemplo" class="form-select" [(ngModel)]="ejemploId">
+            <option *ngFor="let level of ejemplos" [ngValue]="level.id">{{level.id}} - {{level.descripcion}}</option>
+          </select>
+        </div>
+
+
+<!--Steaming-->
+<div class="container mt-3" *ngIf=" algoritmo && algoritmo.tipoAnalisis == 'ONLINE'">
+  <div class="card borde">
+    <div class="card-body">
+      <br />
+      Streaming 
+      <br />
+      <br />
+      <div class="col-sm-4 " >
+        <input type="text" class= "alert alert-secondary"
+        placeholder="Estado : {{stream.estado}}" aria-label="Disabled input example" disabled>
+      </div>
+      <br />
+      <div class="col-md-10">
+        <label for="servidor" class="form-label">Servidor RTMP: </label>
+        <input
+          type="text"
+          id="servidor"
+          name="servidor"
+          [(ngModel)]="stream.url"
+        />
+      </div>
+      <br />
+      <div class="col-4">
+        <label for="key" class="form-label">Stream Key: </label>
+        <input
+          type="text"
+          id="key"
+          name="key"
+          [(ngModel)]="stream.key"
+        />
+      </div>
+      <br />
+      <div class="col-10">
+        <label for="endpoint" class="form-label">Endpoint Transmision: </label>
+        <input
+          type="text"
+          id="endpoint"
+          name="endpoint"
+          [(ngModel)]="stream.urlTrasmision"
+        />
+      </div>
+      <div class="alert alert-primary" role="alert">
+        El Endpoint de la Trasmision se enviara como ultimo parametro en el comando de ejecucion
+      </div>
+      <button
+        class="btn btn-primary"
+        role="button"
+        (click)="iniciarStreaming()"
+        *ngIf="prueba.id;"
+        >Iniciar Canal de Transmision</button>
+        <button
+        class="btn btn-secondary"
+        role="button"
+        (click)="stopStreaming()"
+        *ngIf="prueba.id;"
+        >Parar Transmision</button>
+    </div>
+  </div>
+
+</div>        
+<!--Tabla de parametros del Ejemplo seleccionado-->
+<div class="container mt-3">
+  <div class="card borde">
+    <div class="card-body">
+      <br />
+      Parametros
+      <br />
+      <br />
+      <table
+      id="datatable_parametros"
+      class="table table-bordered table-striped no-wrap"
+      style="width: 100%"
+    >
+      <thead class="text-white bg-dark">
+        <tr>
+          <th>Orden Parametro</th>
+          <th>Nombre</th>
+          <th>Descripcion</th>
+          <th>Tipo Dato</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let param of ejemplo.parametros">            
+          <td>{{param.orden}}</td>
+          <td>{{param.nombre}}</td>
+          <td>{{param.descripcion}}</td>
+          <td>{{param.tipoDato}}</td>
+          <td>{{param.valor}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+</div>
+<!--Parametros-->
+<!--Resultados-->
+<div class="container mt-3">
+  <div class="card borde">
+    <div class="card-body">
+      <br />
+      Resultados de Ejecucion
+      <br />
+      <br />
+      <table
+      id="datatable_resultados"
+      class="table table-bordered table-striped no-wrap"
+      style="width: 100%"
+    >
+      <thead class="text-white bg-dark">
+        <tr>
+          <th>ID</th>
+          <th>Fecha Creacion</th>
+          <th>Estado</th>
+          <th>Exitosa</th>
+          <th>Mensaje</th>
+          <th>Comando ID</th>
+          <th>Fecha Inicio</th>
+          <th>Fecha Fin</th>
+          <th>Abrir en el Moudulo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let result of resultsEjecucion">            
+          <td>{{result.id}}</td>
+          <td>{{result.fecha_creacion}}</td>
+          <td>{{result.estado}}</td>
+          <td>{{result.exitosa}}</td>
+          <td>{{result.mensaje}}</td>
+          <td>{{result.comando_id}}</td>
+          <td>{{result.fecha_inicio}}</td>
+          <td>{{result.fecha_fin}}</td>
+          <td>
+            <button type="button" name="Abrir"  (click)="verResultsModulo(result.id)" class="btn btn-primary btn-sm">Abrir</button>
+          </td> 
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+</div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--Fin Formulario-->

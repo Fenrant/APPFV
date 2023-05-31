@@ -1,0 +1,17 @@
+
+<div class="text-center custom-margin">
+    <h2>Instantáneas</h2>
+</div>
+
+<div class="container" style="width: 70%; height: 50vh;">
+    <div class="carousel-container">
+      <ngb-carousel *ngIf="images" class="w-100 mx-auto" style="height: 80%">
+        <ng-template ngbSlide *ngFor="let image of images; let i=index">
+          <div class="picsum-img-wrapper">
+            <img [src]="image" [alt]="'Slide ' + (i + 1)" style="width: 100%; height: auto;"/>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </div>
+</div>
+

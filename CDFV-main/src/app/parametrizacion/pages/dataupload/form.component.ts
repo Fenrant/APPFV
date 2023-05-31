@@ -43,20 +43,17 @@ export class FormComponent implements OnInit {
     return this._moduloId;
   }
   public set moduloId(value: number) {
-    
     this._moduloId = value;
     this.prueba.moduloId = this._moduloId;
     this.algoritmos.splice(0);
-    console.log(this.prueba)
     if(this.prueba.id == 0){
-      
       this.algoritmoService.listarAlgoritmos(this.prueba).pipe()
       .subscribe(algs => {
         this.algoritmos = this.algoritmos.concat(algs)
       });
     }
 
-   // console.log('Prueba:',this.prueba);
+    console.log('Prueba:',this.prueba);
   }
 
   public get algoritmoId(): number {
@@ -64,16 +61,14 @@ export class FormComponent implements OnInit {
   }
 
   public set algoritmoId(value: number) {
-    console.log(this.algoritmos)
     this._algoritmoId = value;
     this.prueba.algoritmoId = value;
     const found = this.algoritmos.find((obj) => {
       return obj.id === value;
     });
     if (found)  {
-      //console.log('found:', found);
       this.algoritmo = found;
-      //console.log('Algoritmo:', this.algoritmo);
+      console.log('Algoritmo:', this.algoritmo);
       this.request.comando = found.comandoEjecucion;
       this.descripcion = found.descripcion;
       this.request.instanceId = found.idServicioAws;
@@ -110,7 +105,7 @@ export class FormComponent implements OnInit {
       return obj.id === value;
     });
 
-    //console.log('Ejemplo:', found);
+    console.log('Ejemplo:', found);
     
     if (found)  {
       this.ejemplo = found;
@@ -145,7 +140,6 @@ export class FormComponent implements OnInit {
     console.log(request);
     this.algoritmoService.obtenerLogs(request).pipe()
     .subscribe(results => {
-      console.log(results);
       this.resultados = results
       const found = this.resultados.filter((obj) => {
         return obj.padre_id === null;
@@ -162,7 +156,7 @@ export class FormComponent implements OnInit {
       if (id) {
           this.dataService.getPrueba(id).subscribe((result) => {
           this.prueba = result as Prueba
-          //console.log('Carga Prueba',this.prueba)
+          console.log('Carga Prueba',this.prueba)
           this.moduloId = this.prueba.moduloId;
           this.algoritmos.push(this.prueba.algoritmo)
           this.ejemplo = this.prueba.ejemplo;

@@ -16,8 +16,8 @@ import { SrvStream } from '../dataupload/stream';
     providedIn: 'root'
   })
 export class AlgoritmoService {
-    private urlEndPoint: string = ' https://64p6c5f18a.execute-api.us-east-1.amazonaws.com/desarrollo/parametrizacion';
-    private urlEndPoint2: string = ' https://64p6c5f18a.execute-api.us-east-1.amazonaws.com/desarrollo/algoritmo';
+    private urlEndPoint: string = 'https://aocb4e3yx3.execute-api.us-west-1.amazonaws.com/develop/parametrizacion';
+    private urlEndPoint2: string = 'https://aocb4e3yx3.execute-api.us-west-1.amazonaws.com/develop/algoritmo';
 
     private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
     private httpHeaders2 = new HttpHeaders({"Access-Control-Allow-Origin" : "*",
@@ -64,11 +64,11 @@ export class AlgoritmoService {
     }
 
     crearEjemplo(ejemplo: Ejemplo): Observable<Ejemplo> {
-      //console.log('Ejemplo service',ejemplo);
+      console.log('Ejemplo service',ejemplo);
       return this.http.post(`${this.urlEndPoint2}/ejemplo`, ejemplo, { headers: this.httpHeaders }).pipe(
         map((response: any) => response.ejemplo as Ejemplo ),
         catchError(e => {
-          //console.log('Error',e);
+          console.log('Error',e);
           if (e.status == 400) {
             return throwError(e);
           }
@@ -82,7 +82,7 @@ export class AlgoritmoService {
       return this.http.post(`${this.urlEndPoint}/medialive`, stream, { headers: this.httpHeaders }).pipe(
         map((response: any) => response as SrvStream ),
         catchError(e => {
-          //console.log('Error',e);
+          console.log('Error',e);
           if (e.status == 400) {
             return throwError(e);
           }
@@ -93,13 +93,10 @@ export class AlgoritmoService {
       );
     }
     listarAlgoritmos(prueba: Prueba): Observable<Algoritmo[]> {
-      console.log(prueba)
       return this.http.post(`${this.urlEndPoint2}/listaralgoritmos`,prueba,{ headers: this.httpHeaders }).pipe(
         map(response => {
           let respuesta = response as Respuesta;
           let algoritmos:Algoritmo[] = [];
-
-          console.log(response)
 
           if(respuesta.statusCode === 400){
             return algoritmos;
@@ -125,8 +122,6 @@ export class AlgoritmoService {
           if(respuesta.statusCode === 400){
             return results;
           }
-
-          console.log(response);
 
           results = response as Result[];
           return results.map(result => {
